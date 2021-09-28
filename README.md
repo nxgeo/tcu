@@ -1,5 +1,4 @@
-## About
-Twitter chunked POST media/upload endpoints allow you to upload files in chunks to facilitate the uploading of large files.
+Twitter chunked POST media/upload endpoints allow you to upload media in chunks to facilitate the uploading of large media.
 
 ## Installation
 ```bash

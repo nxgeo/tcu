@@ -1,29 +1,29 @@
-from requests_oauthlib import OAuth1Session
-from tcu import TChunkedUpload, TCUError
+from requests import post
+from tcu import OAuth1, TChunkedUpload, TCUError
 
 CONSUMER_KEY = ''
 CONSUMER_SECRET = ''
 ACCESS_TOKEN = ''
 ACCESS_TOKEN_SECRET = ''
 
-cred = (
+auth = OAuth1(
     CONSUMER_KEY, CONSUMER_SECRET,
     ACCESS_TOKEN, ACCESS_TOKEN_SECRET
 )
 
-twt = TChunkedUpload(*cred)
-client = OAuth1Session(*cred)
+twt = TChunkedUpload(auth)
 
 try:
     r = twt.upload_media('your-vid.mp4', 'tweet')
 except TCUError as e:
     print(e)
 else:
-    media_id = r['media_id_string']
-
-    r = client.post('https://api.twitter.com/1.1/statuses/update.json', data={
+    data = {
         'status': 'test TChunkedUpload.',
-        'media_ids': [media_id]
-    })
+        'media_ids': [r['media_id_string']]
+    }
+
+    r = post('https://api.twitter.com/1.1/statuses/update.json',
+             data, auth=auth)
 
     print(r.json())
