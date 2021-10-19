@@ -14,7 +14,7 @@ auth = OAuth1(
 twt = TChunkedUpload(auth)
 
 try:
-    r = twt.upload_media('your-vid.mp4', 'tweet')
+    r = twt.upload_media('your-vid.mp4', 'TweetVideo')
 except TCUError as e:
     print(e)
 else:
